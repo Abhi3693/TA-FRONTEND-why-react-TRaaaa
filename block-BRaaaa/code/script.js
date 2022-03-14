@@ -1,26 +1,33 @@
 let input = document.querySelector(`input`);
 let rootElm = document.querySelector(`.list-holder`);
 
-let allMovies = [];
+let allMovies = localStorage.getItem("allMovies")
+  ? JSON.parse(localStorage.getItem("allMovies"))
+  : [];
+
+function updateMovies(){
+  localStorage.setItem("allMovies", JSON.stringify(allMovies));
+  createMovieUI();
+}
 
 input.addEventListener("keyup", (event) => {
   if(event.keyCode === 13) {
     allMovies.push({name:event.target.value, watched:false});
     event.target.value = "";
+    updateMovies();
   }
-  createMovieUI();
 });
 
 function handleChange(event) {
   let id = event.target.id;
   allMovies[id].watched = !allMovies[id].watched;
-  createMovieUI();
+  updateMovies();
 }
 
 function handleDelete(event) {
   let id = event.target.dataset.id;
   allMovies.splice(id, 1);
-  createMovieUI();
+  updateMovies(allMovies);
 }
 
 function createMovieUI() {
