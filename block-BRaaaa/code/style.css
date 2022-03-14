@@ -1,0 +1,25 @@
+.container{
+  width: 50%;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: rgb(206, 244, 244);
+  border-radius: 10px;
+}
+.movie-input{
+  width: 98%;
+  padding: 5px;
+  font-size: 1rem;
+}
+h1{
+  text-align: center;
+  color: rgb(49, 105, 201);
+}
+li{
+  display: flex;
+  align-items: center;
+  border-bottom:1px solid lightgray ;
+  padding: 10px;
+}
+.checkbox, label{
+  margin-right: 3rem;
+}
