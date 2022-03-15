@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie watch list</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Movie watch list</h1>
+    <input class="movie-input" type="text" placeholder="Enter movie name">
+    <ul class="list-holder"></ul>
+    <ul class="btn-holder">
+      <li><button class="btn all">All</button></li>
+      <li><button class="btn activeBTN">Actice</button></li>
+      <li><button class="btn completed">completed</button></li>
+      <li><button class="btn remove">Clear Comeleted</button></li>
+    </ul>
+  </div>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html> 
