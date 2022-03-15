@@ -11,6 +11,7 @@ CDN url for babel to use in our project.
 
 ```html
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js
 ```
 
 While using Babel don't forget to change `type` attribute of `script` element.
