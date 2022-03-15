@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie watch list</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Movie watch list</h1>
+    <input class="movie-input" type="text" placeholder="Enter movie name">
+    <ul class="list-holder"></ul>
+    <ul class="btn-holder">
+      <li><button class="btn all">All</button></li>
+      <li><button class="btn activeBTN">Actice</button></li>
+      <li><button class="btn completed">completed</button></li>
+      <li><button class="btn remove">Clear Comeleted</button></li>
+    </ul>
+  </div>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script  type="text/babel">
+    let input = document.querySelector(".movie-input");
+    let rootElm = document.querySelector(".list-holder");
+    let all = document.querySelector(".all");
+    let active = document.querySelector(".activeBTN");
+    let completed = document.querySelector(".completed");
+    let remove = document.querySelector(".remove");
+
+
+    let allMovies = localStorage.getItem("allMovies") 
+      ? JSON.parse(localStorage.getItem("allMovies")) 
+      : [];
+
+    function updateAllMovies(val = allMovies) {
+      allMovies = val;
+      localStorage.setItem("allMovies", JSON.stringify(val));
+      createMoviesUI();
+    }
+
+
+    input.addEventListener("keyup", (event) => {
+      if(event.keyCode === 13) {
+        allMovies.push({name:event.target.value, watched: false});
+        event.target.value = "";
+      updateAllMovies();
+      }
+    });
+
+
+    function handleChange(event) {
+      let id = event.target.id;
+      allMovies[id].watched = !allMovies[id].watched;
+      updateAllMovies();
+    }
+
+    function handleDelete(event) {
+      let id = event.target.dataset.id;
+      allMovies.splice(id,1);
+      updateAllMovies();
+    }
+
+    function createMoviesUI(data = allMovies) {
+        let movieUI =  data.map((movie, i) => { 
+          return (
+          <li>
+            <input type= "checkbox" checked= {movie.watched} id= {i} onChange = {handleChange} />
+            <p>{movie.name}</p>
+            <span data-id = {i} onClick = {handleDelete} >{"❌"}</span>
+          </li> );
+        });
+      ReactDOM.render(movieUI, rootElm);
+    }
+
+    let tag ;
+
+    function activeBTN(val = all) {
+      all.classList.remove("active");
+      active.classList.remove("active");
+      completed.classList.remove("active");
+      remove.classList.remove("active");
+      val.classList.add("active");
+    }
+
+    all.addEventListener("click", (event) => {
+      activeBTN(all);
+      createMoviesUI(allMovies);
+    });
+
+    active.addEventListener("click", (event) => {
+      activeBTN(active);
+      let toWatch = allMovies.filter((mov)=> {return !mov.watched});
+      createMoviesUI(toWatch);
+    });
+
+    completed.addEventListener("click", (event) => {
+      activeBTN(completed);
+      let watchedMov = allMovies.filter((mov)=> {return mov.watched});
+      createMoviesUI(watchedMov);
+    });
+
+    remove.addEventListener("click", (event) => {
+      activeBTN(remove);
+      let toWatch = allMovies.filter((mov)=> {return !mov.watched});
+      updateAllMovies(toWatch);
+    });
+
+    activeBTN();
+    createMoviesUI();
+  </script>
+</body>
+</html> 
