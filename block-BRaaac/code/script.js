@@ -16,16 +16,12 @@ function updateAllMovies(val = allMovies) {
   createMoviesUI();
 }
 
-function addBtn () {
-  if(tag === "all") {
-    all.classList
-  }
-}
-
 input.addEventListener("keyup", (event) => {
-  if(event.keyCode === 13) {
-    allMovies.push({name:event.target.value, watched: false});
-    event.target.value = "";
+  if(event.keyCode === 13) { 
+    if(event.target.value) {
+      allMovies.push({name:event.target.value, watched: false});
+      event.target.value = "";
+    }
    updateAllMovies();
   }
 });
@@ -47,11 +43,16 @@ function createElement(elm, attr = {}, ...childrens) {
   for(let key in attr) {
     if(key.startsWith("data-")) {
       element.setAttribute(key, attr[key]);
+    } else if(key.startsWith("onChange")) {
+      let eventType = key.replace("on", "").toLowerCase();
+      element.addEventListener(eventType, attr[key]);
+    } else if(key.startsWith("onClick")) {
+      let eventType = key.replace("on", "").toLowerCase();
+      element.addEventListener(eventType, attr[key]);
     } else {
       element[key] = attr[key]
     }
   }
-
   childrens.forEach((child) => {
     if(typeof child === "object") {
       element.append(child)
@@ -60,7 +61,7 @@ function createElement(elm, attr = {}, ...childrens) {
       let node = document.createTextNode(child);
       element.append(node);
     }
-  })
+  });
   return element
 }
 
@@ -71,25 +72,16 @@ function createMoviesUI(data = allMovies) {
       "li", 
       {}, 
       createElement("input", { 
-        type : "checkbox", id: i, checked: movie.watched }),
+        type : "checkbox", id: i, checked: movie.watched, onChange: handleChange }),
       createElement("label", 
         {for: i}, 
         movie.name),
       createElement("span", 
-      {"data-id": i}, 
+      {"data-id": i, onClick: handleDelete}, 
       "❌")
     );
-    
-    for(let one in  li.children) {
-      if(li.children[one].type === "checkbox") {
-        li.children[one].addEventListener("change", handleChange);
-      }
-      if(li.children[one].dataset && li.children[one].dataset.id) {
-        li.children[one].addEventListener("click", handleDelete);
-      }
-    }
     rootElm.append(li);
-  })
+  });
 }
 
 let tag ;
@@ -124,6 +116,7 @@ remove.addEventListener("click", (event) => {
   activeBTN(remove);
   let toWatch = allMovies.filter((mov)=> {return !mov.watched});
   updateAllMovies(toWatch);
-})
+});
+
 activeBTN();
 createMoviesUI();
