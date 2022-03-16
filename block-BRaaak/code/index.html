@@ -55,27 +55,27 @@
       },
     ];
     // component
-    let Article = (props) => {
-      let month = props.date.toLocaleString("default", {month: "short"});
-      let date = props.date.getDate();
+    function Article (props) {
+      let month = props.articleInfo.date.toLocaleString("default", {month: "short"});
+      let date = props.articleInfo.date.getDate();
         return (
         <>
           <div className="container flex-30">
             <div className="card">
               <div className="img-holder relative">
-                <img src={props.imageURL} alt="img1" />
-                <span className="category absolute">{props.category}</span>
+                <img src={props.articleInfo.imageURL} alt="img1" />
+                <span className="category absolute">{props.articleInfo.category}</span>
                 <span className="date absolute">{date} <br /> {month} </span>
               </div>
               <div className="cardInfo">
-                <h1>{props.title}</h1>
-                <h2>{props.subTitle}</h2>
-                <p>{props.description}</p>
+                <h1>{props.articleInfo.title}</h1>
+                <h2>{props.articleInfo.subTitle}</h2>
+                <p>{props.articleInfo.description}</p>
                 <div className="comment-holder flex">
                   <span className="comment-time"> 6 min ago</span>
                   <span className="comment-count">
                     <i className="fas fa-comments"></i>
-                    {props.comments} comments
+                    {props.articleInfo.comments} comments
                   </span>
                 </div>
               </div>
@@ -87,21 +87,11 @@
     }
 
 
-    let articlesArr  = articles.map((art) => {
-      return (
-        <Article
-          title= {art.title}
-          date= {art.date}
-          comments= {art.comments}
-          imageURL= {art.imageURL}
-          description= {art.description}
-          category= {art.category}
-          subTitle= {art.subTitle}
-        />
-      )
-    })
+    function Articles() {
+      return articles.map((art)=> <Article articleInfo = {art}/>)
+    }
 
-    ReactDOM.render( articlesArr, document.querySelector(".root"));
+    ReactDOM.render( Articles(), document.querySelector(".root"));
   </script>
 </body>
 </html>
