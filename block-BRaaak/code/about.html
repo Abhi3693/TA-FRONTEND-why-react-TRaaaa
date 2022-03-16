@@ -54,54 +54,28 @@
           'https://techcrunch.com/wp-content/uploads/2019/07/GettyImages-846875220.jpg?w=1390&crop=1',
       },
     ];
+
+
     // component
-    let Article = (props) => {
-      let month = props.date.toLocaleString("default", {month: "short"});
-      let date = props.date.getDate();
-        return (
+    let Cards = (props) =>
+    (
+      
         <>
-          <div className="container flex-30">
-            <div className="card">
-              <div className="img-holder relative">
-                <img src={props.imageURL} alt="img1" />
-                <span className="category absolute">{props.category}</span>
-                <span className="date absolute">{date} <br /> {month} </span>
-              </div>
-              <div className="cardInfo">
-                <h1>{props.title}</h1>
-                <h2>{props.subTitle}</h2>
-                <p>{props.description}</p>
-                <div className="comment-holder flex">
-                  <span className="comment-time"> 6 min ago</span>
-                  <span className="comment-count">
-                    <i className="fas fa-comments"></i>
-                    {props.comments} comments
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          <h1>{props.username}</h1>
+          <img src={props.imgUrl} alt="" />
+        </div>
         </>
-      )
-      return result;
-    }
+    ) 
 
-
-    let articlesArr  = articles.map((art) => {
-      return (
-        <Article
-          title= {art.title}
-          date= {art.date}
-          comments= {art.comments}
-          imageURL= {art.imageURL}
-          description= {art.description}
-          category= {art.category}
-          subTitle= {art.subTitle}
-        />
-      )
-    })
-
-    ReactDOM.render( articlesArr, document.querySelector(".root"));
+    let startks = 
+    <>
+      <Cards username ="arya" imgUrl ='https://techcrunch.com/wp-content/uploads/2019/07/GettyImages-846875220.jpg?w=1390&crop=1'/>
+      <Cards username="bml" imgUrl='https://techcrunch.com/wp-content/uploads/2019/09/twitter-hidden-replies1.png?resize=1536,816'/>
+      <Cards username="audi" imgUrl = 'https://images.unsplash.com/photo-1610874933184-7728fd666162?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60'/>
+    </>
+    
+    ReactDOM.render(startks, document.querySelector(".root"));
   </script>
 </body>
 </html>
