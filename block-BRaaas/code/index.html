@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event in React</title>
+  <style>
+    button{
+      background-color: lightgray;
+      color: red;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      display: block;
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+    button:hover{
+      cursor: pointer;
+    }
+    .btn-holder{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> 
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+
+
+    let fruits = [
+      { id: 'apple', value: '🍎 apple' },
+      { id: 'orange', value: '🍊 orange' },
+      { id: 'grape', value: '🍇 grape' },
+      { id: 'pear', value: '🍐 pear' },
+    ];
+
+    function handleClick(event) {
+      alert("Hello React Event");
+    }
+
+    function handleHelp(even) {
+      alert(`to learn react use https://reactjs.org`, `React and ReactDOM works together`, `Babel helps in writing JSX`);
+      alert(`React and ReactDOM works together`);
+      alert(`Babel helps in writing JSX`);
+    }
+
+    function handleName(name, event) {
+      alert(`Hello ${name}`)
+      console.dir(event)
+    }
+
+    function fruitName(name){
+      alert(` ${name}`)
+    }
+
+    function CreateBTN(props) {
+      return <button onClick={()=> fruitName(props.value)}>{props.id}</button>
+    }
+
+    function AllFruits() {
+      return fruits.map((fruit)=> {
+        return <CreateBTN key={fruit.id} {...fruit}/>
+      });
+    }
+
+    let allBTN = <div className= "btn-holder">
+        <button onClick={handleClick} >Click me</button>
+        <button onClick={handleHelp} >How can i help You</button>
+        <button onClick={() => handleName("John", event) } >John</button>
+        <button onClick={() => handleName("Arya", event) } >Arya</button>
+        <button onClick={() => handleName("Bran", event) } >Bran</button>
+        {AllFruits()}
+      </div>
+
+    ReactDOM.render(allBTN, document.getElementById("root"));
+  </script>
+</body>
+</html>
