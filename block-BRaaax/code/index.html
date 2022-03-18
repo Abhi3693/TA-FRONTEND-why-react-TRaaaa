@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event in React</title>
+  <style>
+    button{
+      border: none;
+      display: block;
+      margin-top: 1rem;
+    }
+    button:hover{
+      cursor: pointer;
+    }
+    .small{
+      padding: 1rem;
+      font-size: 0.5rem;
+    }
+    .medium{
+      padding: 2rem;
+      font-size: 1rem;
+    }
+    .large{
+      padding: 3rem;
+      font-size: 2rem;
+    }
+    .primary{
+      background-color: gray;
+      color: blue;
+    }
+    .secondary{
+      background-color: rgb(128, 0, 0);
+      color: gray;
+    }
+    .tertiary{
+      background-color: gold;
+      color: red;
+    }
+    .btn-holder{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> 
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+
+    let btnType = {
+      PRIMARY : "primary",
+      SECONDARY : "secondary",
+      TERTIARY : "tertiary"
+    }
+
+    let btnSize = {
+      SMALL : "small",
+      MEDIUM : "medium",
+      LARGE : "large"
+    }
+
+        function Button(props) {
+
+          function getStyle() {
+            let {type = btnType.PRIMARY, size = btnSize.MEDIUM} = props;
+            return `button ${type} ${size} `
+          }
+
+          return (
+            <button 
+              className = {getStyle()}
+              disabled={props.disabled ? props.disabled : false}
+              onClick={props.onClickHandler}
+            >{props.label || "Click me!!!!!"}</button>
+          )
+        }
+
+
+    let allBTN = <div className= "btn-holder">
+        
+        <Button
+          disabled={true}
+          onClickHandler={() => alert("You Clicked Me!")}
+        />
+
+        <Button
+          label="Secondary"
+          type={btnType.SECONDARY}
+        />
+
+        <Button
+        />
+
+        <Button
+          size={btnSize.SMALL}
+          label="Button"
+          type={btnType.PRIMARY}
+        />
+        <Button
+          size={btnSize.MEDIUM}
+          label="Button"
+          type={btnType.SECONDARY}
+        />
+        <Button
+          size={btnSize.LARGE}
+          label="Button"
+          type={btnType.TERTIARY}
+          onClickHandler={() => alert("You Clicked Me!")}
+        />
+        
+      </div>
+
+    ReactDOM.render(allBTN, document.getElementById("root"));
+  </script>
+</body>
+</html>
