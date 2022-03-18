@@ -7,16 +7,36 @@
   <title>Event in React</title>
   <style>
     button{
-      background-color: lightgray;
-      color: red;
-      padding: 10px;
       border: none;
       display: block;
       margin-top: 1rem;
-      font-size: 1rem;
     }
     button:hover{
       cursor: pointer;
+    }
+    .small{
+      padding: 1rem;
+      font-size: 0.5rem;
+    }
+    .medium{
+      padding: 2rem;
+      font-size: 1rem;
+    }
+    .large{
+      padding: 3rem;
+      font-size: 2rem;
+    }
+    .primary{
+      background-color: gray;
+      color: blue;
+    }
+    .secondary{
+      background-color: rgb(128, 0, 0);
+      color: gray;
+    }
+    .tertiary{
+      background-color: gold;
+      color: red;
     }
     .btn-holder{
       display: flex;
@@ -33,25 +53,30 @@
   <script type="text/babel">
 
     let btnType = {
-      primary : "PRIMARY",
-      secondary : "SECONDARY",
-      tertiary : "TERTIARY"
+      PRIMARY : "primary",
+      SECONDARY : "secondary",
+      TERTIARY : "tertiary"
     }
 
     let btnSize = {
-      small : "SMALL",
-      medium : "MEDIUM",
-      large : "LARGE"
+      SMALL : "small",
+      MEDIUM : "medium",
+      LARGE : "large"
     }
+
         function Button(props) {
-          console.log(props);
+
+          function getStyle() {
+            let {type = btnType.PRIMARY, size = btnSize.MEDIUM} = props;
+            return `button ${type} ${size} `
+          }
+
           return (
             <button 
-              type={props.type ? btnType[props.type] : "PRIMARY"}
-              size={props.size ? btnSize[props.size] : "MEDIUM"}
+              className = {getStyle()}
               disabled={props.disabled ? props.disabled : false}
               onClick={props.onClickHandler}
-            >{props.label ? props.label : "Button"}</button>
+            >{props.label || "Click me!!!!!"}</button>
           )
         }
 
@@ -64,17 +89,27 @@
         />
 
         <Button
+          label="Secondary"
+          type={btnType.SECONDARY}
+        />
+
+        <Button
+        />
+
+        <Button
+          size={btnSize.SMALL}
           label="Button"
+          type={btnType.PRIMARY}
         />
         <Button
-          size="small"
+          size={btnSize.MEDIUM}
           label="Button"
-          type="secondary"
+          type={btnType.SECONDARY}
         />
         <Button
-          size="large"
+          size={btnSize.LARGE}
           label="Button"
-          type="tertiary"
+          type={btnType.TERTIARY}
           onClickHandler={() => alert("You Clicked Me!")}
         />
         
